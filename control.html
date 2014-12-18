@@ -55,8 +55,8 @@
     var y_action = '';
 
     setInterval(function () {
-        var new_x_action = '';
-        var new_y_action = '';
+        var new_x_action = x_action;
+        var new_y_action = y_action;
 
         if (X > a && Xi > time) {
             if (x_action != 'left') {
@@ -91,7 +91,7 @@
             window.navigator.vibrate(100);
             socket.send({event: 'move', action: new_x_action+new_y_action});
         }
-    }, 5);
+    }, 1);
 
     if (window.DeviceMotionEvent != undefined) {
         window.ondevicemotion = function (e) {
