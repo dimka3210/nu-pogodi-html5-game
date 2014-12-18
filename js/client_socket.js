@@ -16,5 +16,8 @@ socket.on('message', function (msg) {
         case 'auth_success':
             cEvents.authSuccess();
             break;
+        case 'reload':
+            window.location.reload();
+            break;
     }
 });

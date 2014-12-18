@@ -10,8 +10,10 @@ var users = {};
 
 io.sockets.on('connection', function (socket) {
     console.log('User connect ' + socket.id);
-
     socket.on('message', function (msg) {
+        console.log('==========================');
+        console.log(msg);
+        console.log('==========================');
         if (!msg.event) {
             console.error('Field "event" required!');
             return;
@@ -23,7 +25,12 @@ io.sockets.on('connection', function (socket) {
                 break;
             case 'move':
                 events.move(msg.action);
-
+                break;
+            case 'start':
+                break;
+            case 'reload':
+                events.reload();
+                break;
         }
     });
     socket.on('disconnect', function () {
