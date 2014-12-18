@@ -4,7 +4,7 @@
 var CEvents = function (socket) {
     return {
         authSuccess: function () {
-            alert('Привет!!!');
+            console.log('Привет!!!');
         }
     };
 };
