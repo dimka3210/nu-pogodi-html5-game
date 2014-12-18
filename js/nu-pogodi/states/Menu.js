@@ -40,7 +40,7 @@ NuPogodi.MenuState.prototype = {
         }
 
         //adding NerdLab logo and NuPogodi name
-        this.game.add.sprite(this.game.world.centerX - 150, 200, 'logo-nerd');
+        this.game.add.sprite(this.game.world.centerX - 150, 200, 'logo-b2b');
         this.game.add.text(
                 this.game.world.centerX + 30,
                 200,

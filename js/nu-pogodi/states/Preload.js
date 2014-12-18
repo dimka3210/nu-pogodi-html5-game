@@ -26,7 +26,7 @@ NuPogodi.PreloadState.prototype = {
      */
     preload: function() {
         // showing name and logo
-        this.game.add.sprite(this.game.world.centerX - 150, 200, 'logo-nerd');
+        this.game.add.sprite(this.game.world.centerX - 150, 200, 'logo-b2b');
         this.game.add.text(this.game.world.centerX + 30, 200, "Nu Pogodi", {
             font: "30px lets_go_digitalregular",
             fill: "#000000",
