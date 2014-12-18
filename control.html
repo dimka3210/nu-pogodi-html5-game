@@ -71,6 +71,7 @@
                 $('#result').text('right');
             }
         }
+
         if (Y > a2 && Yi > time) {
             if (y_action != 'bottom') {
                 new_y_action = 'bottom';
@@ -88,7 +89,7 @@
         if (x_action != new_x_action || y_action != new_y_action) {
             x_action = new_x_action;
             y_action = new_y_action;
-            window.navigator.vibrate(100);
+ //           window.navigator.vibrate(100);
             socket.send({event: 'move', action: new_x_action+new_y_action});
         }
     }, 1);
@@ -97,20 +98,19 @@
         window.ondevicemotion = function (e) {
             var axeler = event.acceleration;
 
+            X = 0;
+            Xi = 0;
+            Y = 0;
+            Yi = 0;
+
             if (axeler.x > a || axeler.x <= -a) {
                 X = axeler.x;
                 Xi++;
-            } else {
-                X = 0;
-                Xi = 0;
             }
 
             if (axeler.y > a2 || axeler.y <= -a2) {
                 Y = axeler.y;
                 Yi++;
-            } else {
-                Y = 0;
-                Yi = 0;
             }
         }
     }
