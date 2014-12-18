@@ -23,7 +23,12 @@ io.sockets.on('connection', function (socket) {
                 break;
             case 'move':
                 events.move(msg.action);
-
+                break;
+            case 'start':
+                break;
+            case 'reload':
+                events.reload();
+                break;
         }
     });
     socket.on('disconnect', function () {
