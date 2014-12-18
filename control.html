@@ -43,25 +43,39 @@
 
     var time = 4;
 
+    var x_action = '';
+    var y_action = '';
 
     setInterval(function () {
         if (X > a && Xi > time) {
-            socket.send({event: 'move', action: 'left'});
-            $('#result').text('left');
+            if (x_action != 'left') {
+                x_action = 'left';
+                socket.send({event: 'move', action: 'left'});
+                $('#result').text('left');
+            }
         }
 
         if (X < -a && Xi > time) {
-            socket.send({event: 'move', action: 'right'});
-            $('#result').text('right');
+            if (x_action != 'right') {
+                x_action = 'right';
+                socket.send({event: 'move', action: 'right'});
+                $('#result').text('right');
+            }
         }
         if (Y > a2 && Yi > time) {
-            socket.send({event: 'move', action: 'bottom'});
-            $('#result2').text('bottom');
+            if (y_action != 'bottom') {
+                y_action = 'bottom';
+                socket.send({event: 'move', action: 'bottom'});
+                $('#result2').text('bottom');
+            }
         }
 
         if (Y < -a2 && Yi > time) {
-            socket.send({event: 'move', action: 'top'});
-            $('#result2').text('top');
+            if (y_action != 'top') {
+                y_action = 'top';
+                socket.send({event: 'move', action: 'top'});
+                $('#result2').text('top');
+            }
         }
     }, 1);
 
