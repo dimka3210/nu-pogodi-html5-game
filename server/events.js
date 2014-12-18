@@ -13,12 +13,15 @@ var Events = function () {
             socket.send({event: 'auth_success'});
             this.users = users;
         },
-        move: function (action) {
 
+        move: function (action) {
+            this.users.server.send({event: 'move', 'action': action});
         },
+
         reload: function () {
             this.users.server.send({event: 'reload'});
         },
+
         start: function () {
             this.users.server.send({event: 'start'});
         }

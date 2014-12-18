@@ -1,8 +1,8 @@
 /**
  * Created by dlarchikov on 18.12.14.
  */
-var socket = io.connect(window.location.host, {'transports':['websocket']});
-var cEvents = new CEvents(socket);
+var socket = io.connect(window.location.host, {'transports': ['websocket']});
+var cEvents = new CEvents();
 
 socket.on('connect', function () {
     socket.send({
@@ -14,13 +14,14 @@ socket.on('connect', function () {
 socket.on('message', function (msg) {
     switch (msg.event) {
         case 'auth_success':
-            cEvents.authSuccess();
             break;
         case 'reload':
-            window.location.reload();
+            cEvents.reload();
             break;
         case 'start':
-            NuPogodi.game.state.states.Menu.beginGame();
+            cEvents.start();
             break;
+        case 'move':
+            cEvents.move(msg.action);
     }
 });

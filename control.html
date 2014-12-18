@@ -6,7 +6,17 @@
     <script src="js/jquery-2.1.3.min.js"></script>
     <script src="js/socket.io.js"></script>
     <script src="js/client_events.js"></script>
-    <script src="js/client_socket.js"></script>
+    <script type="text/javascript">
+        var socket = io.connect(window.location.host, {'transports':['websocket']});
+        var cEvents = new CEvents(socket);
+
+        socket.on('connect', function () {
+            socket.send({
+                'event': 'auth',
+                'role': 'user'
+            });
+        });
+    </script>
 </head>
 <body>
 <style>
