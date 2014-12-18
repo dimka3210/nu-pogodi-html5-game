@@ -2,7 +2,7 @@
  * Created by dlarchikov on 18.12.14.
  */
 var config = require('./config.json');
-var io = require('socket.io').listen(8080);
+var io = require('socket.io').listen(3110);
 var Events = require('./events');
 var events = new Events();
 
