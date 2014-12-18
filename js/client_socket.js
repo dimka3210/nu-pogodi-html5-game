@@ -20,7 +20,7 @@ socket.on('message', function (msg) {
             window.location.reload();
             break;
         case 'start':
-            NuPogodi.game.state.states.Game.beginGame();
+            NuPogodi.game.state.states.Menu.beginGame();
             break;
     }
 });

@@ -4,10 +4,7 @@
 var CEvents = function (socket) {
     return {
         authSuccess: function () {
-            setTimeout(function () {
-                NuPogodi.game.input.keyboard.key(Phaser.Keyboard.ENTER);
-                console.log(123);
-            }, 4000);
+            console.log('auth_success>>>>>>>>>>>>>>>>>>');
         },
         moveLeft: function () {
             NuPogodi.game.state.states.Game.actionButtonRightUp()
