@@ -19,5 +19,8 @@ socket.on('message', function (msg) {
         case 'reload':
             window.location.reload();
             break;
+        case 'start':
+            NuPogodi.game.state.states.Game.beginGame();
+            break;
     }
 });

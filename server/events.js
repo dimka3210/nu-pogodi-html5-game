@@ -14,10 +14,13 @@ var Events = function () {
             this.users = users;
         },
         move: function (action) {
-            console.log('Move: ' + action);
+
         },
         reload: function () {
             this.users.server.send({event: 'reload'});
+        },
+        start: function () {
+            this.users.server.send({event: 'start'});
         }
     };
 };

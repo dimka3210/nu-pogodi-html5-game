@@ -27,6 +27,7 @@ io.sockets.on('connection', function (socket) {
                 events.move(msg.action);
                 break;
             case 'start':
+                events.start();
                 break;
             case 'reload':
                 events.reload();
