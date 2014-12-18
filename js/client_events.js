@@ -13,18 +13,20 @@ var CEvents = function () {
 
         move: function (action) {
             switch (action) {
-                case 'leftup':
+                case 'lefttop':
                     NuPogodi.game.state.states.Game.actionButtonLeftUp();
                     break;
-                case 'leftdown':
+                case 'leftbottom':
                     NuPogodi.game.state.states.Game.actionButtonLeftDown();
                     break;
-                case 'rightup':
+                case 'righttop':
                     NuPogodi.game.state.states.Game.actionButtonRightUp();
                     break;
-                case 'rightdown':
+                case 'rightbottom':
                     NuPogodi.game.state.states.Game.actionButtonRightDown();
                     break;
+                default:
+                    console.log('Нет такого action '+ action);
             }
         }
     };
