@@ -15,5 +15,6 @@ socket.on('message', function (msg) {
     switch (msg.event) {
         case 'auth_success':
             cEvents.authSuccess();
+            break;
     }
 });
