@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Ну погоди!!!</title>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="js/socket.io.js"></script>
+    <script src="js/client_socket.js"></script>
+</head>
+<body>
+<style>
+    h1 {
+        font-size: 60px;
+    }
+
+</style>
+<br/><br/>
+<center>
+    <h1 id="result"></h1>
+
+    <h1 id="result2"></h1>
+
+    <h1 id="result3"></h1>
+</center>
+<br/><br/>
+<br/><br/>
+<br/><br/>
+<br/><br/>
+<!--
+<div id="accelerometer"></div>
+<div id="max"></div>
+<div id="min"></div>
+-->
+<script type="text/javascript">
+    var socket = io.connect('http://' + window.location.host + ':3110');
+
+    var X = 0;
+    var Xi = 0;
+    var Y = 0;
+    var Yi = 0;
+
+    var a = 2;
+    var a2 = 1.8;
+
+    var time = 4;
+
+
+    setInterval(function () {
+        if (X > a && Xi > time) {
+            socket.send({event: 'move', action: 'left'});
+            $('#result').text('left');
+        }
+
+        if (X < -a && Xi > time) {
+            socket.send({event: 'move', action: 'right'});
+            $('#result').text('right');
+        }
+        if (Y > a2 && Yi > time) {
+            socket.send({event: 'move', action: 'bottom'});
+            $('#result2').text('bottom');
+        }
+
+        if (Y < -a2 && Yi > time) {
+            socket.send({event: 'move', action: 'top'});
+            $('#result2').text('top');
+        }
+    }, 1);
+
+    if (window.DeviceMotionEvent != undefined) {
+        window.ondevicemotion = function (e) {
+            var axeler = event.acceleration;
+
+            if (axeler.x > a || axeler.x <= -a) {
+                X = axeler.x;
+                Xi++;
+            } else {
+                X = 0;
+                Xi = 0;
+            }
+
+            if (axeler.y > a2 || axeler.y <= -a2) {
+                Y = axeler.y;
+                Yi++;
+            } else {
+                Y = 0;
+                Yi = 0;
+            }
+        }
+    }
+</script>
+</body>
+</html>

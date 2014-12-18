@@ -10,6 +10,9 @@ var Events = function () {
             }
             users[role] = socket;
             socket.send({event: 'auth_success'});
+        },
+        move: function (action) {
+            console.log('Move: ' + action);
         }
     };
 };

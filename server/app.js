@@ -13,15 +13,20 @@ io.sockets.on('connection', function (socket) {
 
     socket.on('message', function (msg) {
         if (!msg.event) {
-            console.error('Field "event" required!')
+            console.error('Field "event" required!');
             return;
         }
 
         switch (msg.event) {
-            case 'auth': events.auth(socket, msg.role, users);
+            case 'auth':
+                events.auth(socket, msg.role, users);
+                break;
+            case 'move':
+                events.move(msg.action);
+
         }
     });
-    socket.on('disconnect', function() {
+    socket.on('disconnect', function () {
         console.log('User disconnect ' + socket.id);
     });
 });
