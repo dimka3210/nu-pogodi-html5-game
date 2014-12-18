@@ -3,7 +3,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Ну погоди!!!</title>
-    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="js/jquery-2.1.3.min.js"></script>
     <script src="js/socket.io.js"></script>
     <script src="js/client_events.js"></script>
     <script src="js/client_socket.js"></script>
@@ -16,6 +16,8 @@
 
 </style>
 <br/><br/>
+<input type="button" id="start" value="start" />
+<input type="button" id="reload" value="reload" />
 <center>
     <h1 id="result"></h1>
 
@@ -23,16 +25,22 @@
 
     <h1 id="result3"></h1>
 </center>
+
 <br/><br/>
 <br/><br/>
 <br/><br/>
 <br/><br/>
-<!--
-<div id="accelerometer"></div>
-<div id="max"></div>
-<div id="min"></div>
--->
+
 <script type="text/javascript">
+    $(function () {
+       $('#start').click(function () {
+           socket.send({event: 'start'});
+       });
+        $('#reload').click(function () {
+            socket.send({event: 'reload'});
+        });
+    });
+
     var X = 0;
     var Xi = 0;
     var Y = 0;
@@ -47,37 +55,41 @@
     var y_action = '';
 
     setInterval(function () {
+        var new_x_action = '';
+        var new_y_action = '';
+
         if (X > a && Xi > time) {
             if (x_action != 'left') {
-                x_action = 'left';
-                socket.send({event: 'move', action: 'left'});
+                new_x_action = 'left';
                 $('#result').text('left');
             }
         }
 
         if (X < -a && Xi > time) {
             if (x_action != 'right') {
-                x_action = 'right';
-                socket.send({event: 'move', action: 'right'});
+                new_x_action = 'right';
                 $('#result').text('right');
             }
         }
         if (Y > a2 && Yi > time) {
             if (y_action != 'bottom') {
-                y_action = 'bottom';
-                socket.send({event: 'move', action: 'bottom'});
+                new_y_action = 'bottom';
                 $('#result2').text('bottom');
             }
         }
 
         if (Y < -a2 && Yi > time) {
             if (y_action != 'top') {
-                y_action = 'top';
-                socket.send({event: 'move', action: 'top'});
+                new_y_action = 'top';
                 $('#result2').text('top');
             }
         }
-    }, 1);
+
+        if (x_action != new_x_action || y_action != new_y_action) {
+            window.navigator.vibrate(100);
+            socket.send({event: 'move', action: new_x_action+new_y_action});
+        }
+    }, 5);
 
     if (window.DeviceMotionEvent != undefined) {
         window.ondevicemotion = function (e) {
