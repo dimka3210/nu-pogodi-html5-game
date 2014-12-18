@@ -1,7 +1,7 @@
 /**
  * Created by dlarchikov on 18.12.14.
  */
-var socket = io.connect('http://' + window.location.host + ':3110');
+var socket = io.connect(window.location.host);
 var cEvents = new CEvents(socket);
 
 socket.on('connect', function () {
