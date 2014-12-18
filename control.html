@@ -86,6 +86,8 @@
         }
 
         if (x_action != new_x_action || y_action != new_y_action) {
+            x_action = new_x_action;
+            y_action = new_y_action;
             window.navigator.vibrate(100);
             socket.send({event: 'move', action: new_x_action+new_y_action});
         }
