@@ -64,7 +64,14 @@
     var x_action = '';
     var y_action = '';
 
+    var lastTime = 0;
+
     setInterval(function () {
+        var curTime = Date.now();
+        if ((curTime - 300) > lastTime ) {
+            return;
+        }
+
         var new_x_action = x_action;
         var new_y_action = y_action;
 
@@ -99,7 +106,8 @@
         if (x_action != new_x_action || y_action != new_y_action) {
             x_action = new_x_action;
             y_action = new_y_action;
- //           window.navigator.vibrate(100);
+
+            lastTime = curTime;
             socket.send({event: 'move', action: new_x_action+new_y_action});
         }
     }, 1);
