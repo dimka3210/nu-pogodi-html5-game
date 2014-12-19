@@ -146,6 +146,18 @@
         var __xT = null;
 
         window.ondevicemotion = function (e) {
+            var axeler = event.acceleration;
+
+            var aX = axeler.x*1;
+            var aY = axeler.y*1;
+            var aZ = axeler.z*1;
+            //The following two lines are just to calculate a
+            // tilt. Not really needed.
+            xPosition = Math.atan2(aY, aZ);
+            yPosition = Math.atan2(aX, aZ);
+
+            socket.send({event: 'debud', d: {x:xPosition, y:yPosition}});
+            /*
 
             var axeler = event.acceleration;
             var __x = (axeler.x).toFixed(3);
@@ -200,7 +212,7 @@
             }
 
 //            socket.send({event: 'debug', d: xLast});
-
+*/
         }
     }
 </script>
