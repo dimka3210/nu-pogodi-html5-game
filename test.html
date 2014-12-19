@@ -48,12 +48,12 @@
 
 </style>
 <br/><br/>
-<div style="border:1px solid #e1e1e1; width:50px; height:50px; background: blue; position: fixed; top:0; left:0;" id="lefttop"></div>
-<div style="border:1px solid #e1e1e1; width:50px; height:50px; background: blue; position: fixed; bottom:0; left:0;" id="leftbottom"></div>
-<div style="border:1px solid #e1e1e1; width:50px; height:50px; background: blue; position: fixed; top:0; right:0;" id="righttop"></div>
-<div style="border:1px solid #e1e1e1; width:50px; height:50px; background: blue; position: fixed; bottom:0; right:0;" id="righttop"></div>
+<div style="border:1px solid #e1e1e1; width:100px; height:100px; background: blue; position: fixed; top:0; left:0;" id="lefttop"></div>
+<div style="border:1px solid #e1e1e1; width:100px; height:100px; background: blue; position: fixed; bottom:0; left:0;" id="leftbottom"></div>
+<div style="border:1px solid #e1e1e1; width:100px; height:100px; background: blue; position: fixed; top:0; right:0;" id="righttop"></div>
+<div style="border:1px solid #e1e1e1; width:100px; height:100px; background: blue; position: fixed; bottom:0; right:0;" id="righttop"></div>
 
-<table width="100%" height="50%">
+<table width="100%" height="50%" style="margin-left:30%; margin-top:50%;">
     <tr>
         <td>
             <input type="button" id="start" value="start"/>
@@ -84,6 +84,24 @@
         $('#reload').click(function () {
             socket.send({event: 'reload'});
         });
+        $('#righttop').click(function () {
+            socket.send({event: 'move', action: 'top'});
+            socket.send({event: 'move', action: 'right'});
+        });
+        $('#rightbottom').click(function () {
+            socket.send({event: 'move', action: 'bottom'});
+            socket.send({event: 'move', action: 'right'});
+        });
+        $('#lefttop').click(function () {
+            socket.send({event: 'move', action: 'top'});
+            socket.send({event: 'move', action: 'left'});
+        });
+        $('#leftbottom').click(function () {
+            socket.send({event: 'move', action: 'left'});
+            socket.send({event: 'move', action: 'bottom'});
+        });
+
+
     });
 
     var X = 0;
