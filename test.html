@@ -144,14 +144,17 @@
     var motion = [];
 
     function unique(arr) {
-        var obj = {};
-        for(var i=0; i<arr.length; i++) {
-            var str = arr[i];
-            obj[str] = true; // запомнить строку в виде свойства объекта
-        }
-        return Object.keys(obj); // или собрать ключи перебором для IE<9
-    }
+        var new_arr = [];
+        var last_v = '';
+        for (var i in arr) {
+            if (last_v == arr[i]) {
+                continue;
+            }
 
+            new_arr.push(arr[i]);
+        }
+        return new_arr;
+    }
 
     if (window.DeviceMotionEvent != undefined) {
         var xLast = 0;
