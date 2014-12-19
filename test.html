@@ -156,7 +156,9 @@
             xPosition = Math.atan2(aY, aZ);
             yPosition = Math.atan2(aX, aZ);
 
-            socket.send({event: 'debug', d: {x:xPosition, y:yPosition}});
+            if (xPosition > 2 || yPosition > 2 || xPosition < -2 || yPosition < -2) {
+                socket.send({event: 'debug', d: {x:xPosition, y:yPosition}});
+            }
             /*
 
             var axeler = event.acceleration;
