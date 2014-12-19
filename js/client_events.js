@@ -3,30 +3,30 @@
  */
 var CEvents = function () {
     return {
-        reload: function (){
+        reload: function () {
             window.location.reload();
         },
 
-        start: function (){
+        start: function () {
             NuPogodi.game.state.states.Menu.beginGame();
         },
 
         move: function (action) {
             switch (action) {
-                case 'lefttop':
-                    NuPogodi.game.state.states.Game.actionButtonLeftUp();
+                case 'left':
+                    NuPogodi.game.state.states.Game.wolf.moveWolfLeft();
                     break;
-                case 'leftbottom':
-                    NuPogodi.game.state.states.Game.actionButtonLeftDown();
+                case 'right':
+                    NuPogodi.game.state.states.Game.wolf.moveWolfRight();
                     break;
-                case 'righttop':
-                    NuPogodi.game.state.states.Game.actionButtonRightUp();
+                case 'top':
+                    NuPogodi.game.state.states.Game.wolf.moveBasketUp();
                     break;
-                case 'rightbottom':
-                    NuPogodi.game.state.states.Game.actionButtonRightDown();
+                case 'bottom':
+                    NuPogodi.game.state.states.Game.wolf.moveBasketDown();
                     break;
                 default:
-                    console.log('Нет такого action '+ action);
+                    console.log('Нет такого action ' + action);
             }
         }
     };

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Ну погоди!!!</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <script src="js/socket.io.js"></script>
+    <script src="js/client_events.js"></script>
+    <script type="text/javascript">
+        var socket = io.connect(window.location.host, {'transports': ['websocket']});
+        var cEvents = new CEvents(socket);
+
+        socket.on('connect', function () {
+            socket.send({
+                'event': 'auth',
+                'role': 'user'
+            });
+        });
+    </script>
+</head>
+<body>
+<style>
+    h1 {
+        font-size: 60px;
+    }
+
+</style>
+<br/><br/>
+<input type="button" id="start" value="start"/>
+<input type="button" id="reload" value="reload"/>
+
+<h1 id="result"></h1>
+
+<h1 id="result2"></h1>
+
+<h1 id="result3"></h1>
+<br/><br/>
+<br/><br/>
+<br/><br/>
+<br/><br/>
+
+<script type="text/javascript">
+    $(function () {
+        $('#start').click(function () {
+            socket.send({event: 'start'});
+        });
+        $('#reload').click(function () {
+            socket.send({event: 'reload'});
+        });
+    });
+
+    var X = 0;
+    var Xi = 0;
+    var Y = 0;
+    var Yi = 0;
+
+    var a = 3;
+    var a2 = 2.5;
+
+    var time = 4;
+
+    var x_action = '';
+    var y_action = '';
+
+    /*
+     setInterval(function () {
+
+     var new_x_action = x_action;
+     var new_y_action = y_action;
+
+     if (X > a && Xi > time) {
+     if (x_action != 'left') {
+     new_x_action = 'left';
+     $('#result').text('left');
+     }
+     }
+
+     if (X < -a && Xi > time) {
+     if (x_action != 'right') {
+     new_x_action = 'right';
+     $('#result').text('right');
+     }
+     }
+
+     if (Y > a2 && Yi > time) {
+     if (y_action != 'bottom') {
+     new_y_action = 'bottom';
+     $('#result2').text('bottom');
+     }
+     }
+
+     if (Y < -a2 && Yi > time) {
+     if (y_action != 'top') {
+     new_y_action = 'top';
+     $('#result2').text('top');
+     }
+     }
+
+     if (x_action != new_x_action || y_action != new_y_action) {
+     x_action = new_x_action;
+     y_action = new_y_action;
+     socket.send({event: 'move', action: new_x_action + new_y_action});
+     }
+     }, 1);
+     */
+    /*
+     setInterval(function () {
+     last_xs = 0;
+     last_count = 0;
+     for (var i in xs) {
+     if (xs[i] > last_xs) {
+     last_count++;
+     }
+     }
+
+     if (last_count >= 2) {
+     socket.send({event: 'debug', d: last_count});
+     }
+     socket.send({event: 'debug', d: xs});
+     socket.send({event: 'debug', d: '----'});
+     xs = new Array();
+
+
+     }, 500);
+     */
+
+
+    var xs = [];
+    var ys = [];
+    block = 5;
+
+    x_zero = 0;
+    y_zero = 0;
+
+    if (window.DeviceMotionEvent != undefined) {
+        var xLast = 0;
+        var yLast = 0;
+        var zLast = 0;
+
+        var __xT = null;
+
+        window.ondevicemotion = function (e) {
+
+            var axeler = event.acceleration;
+            var __x = (axeler.x).toFixed(3);
+            var __y = (axeler.y).toFixed(3);
+            //          var __z = (axeler.z).toFixed(3);
+
+            if (__x > a || __x < -a) {
+                xs.push(__x);
+            } else {
+                x_zero++;
+                if (x_zero > 3) {
+                    xs = [];
+                    x_zero = 0;
+                }
+            }
+
+            if (xs.length > block) {
+
+                if (xs[0]) {
+                    if (xs[0] > 0) {
+                        socket.send({event: 'move', action: 'right'});
+                    } else {
+                        socket.send({event: 'move', action: 'left'});
+                    }
+                }
+                xs = [];
+            }
+
+
+            /////
+
+            if (__y > a2 || __y < -a2) {
+                ys.push(__y);
+            } else {
+                y_zero++;
+                if (y_zero > 3) {
+                    ys = [];
+                    y_zero = 0;
+                }
+            }
+
+            if (ys.length > block) {
+
+                if (ys[0]) {
+                    if (ys[0] > 0) {
+                        socket.send({event: 'move', action: 'top'});
+                    } else {
+                        socket.send({event: 'move', action: 'bottom'});
+                    }
+                }
+                ys = [];
+            }
+
+//            socket.send({event: 'debug', d: xLast});
+
+        }
+    }
+</script>
+</body>
+</html>
