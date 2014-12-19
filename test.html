@@ -130,9 +130,6 @@
      }, 500);
      */
 
-    var x_1 = 0;
-    var x_2 = 0;
-    var x_3 = 0;
 
     var xs = [];
     var ys = [];
@@ -140,21 +137,6 @@
 
     x_zero = 0;
     y_zero = 0;
-
-    var motion = [];
-
-    function unique(arr) {
-        var new_arr = [];
-        var last_v = '';
-        for (var i in arr) {
-            if (last_v == arr[i]) {
-                continue;
-            }
-
-            new_arr.push(arr[i]);
-        }
-        return new_arr;
-    }
 
     if (window.DeviceMotionEvent != undefined) {
         var xLast = 0;
@@ -164,39 +146,8 @@
         var __xT = null;
 
         window.ondevicemotion = function (e) {
+
             var axeler = event.acceleration;
-            var __x = (axeler.x).toFixed(3);
-            var __y = (axeler.y).toFixed(3);
-
-            var xm = Math.abs(__x);
-
-            if (xm > 2 && xm > xLast) {
-               motion.push(1);
-            }
-
-            if (xm > 2 && xm < xLast) {
-                motion.push(0);
-            }
-
-            xLast = xm;
-
-            u_motion = unique(motion);
-
-            if (u_motion[0] == 1 && u_motion[1] == 0 && u_motion[2] == 1) {
-                socket.send({event: 'debug', d: 'move'});
-            }
-
-            socket.send({event: 'debug', d: u_motion});
-            if (motion.length > 5) {
-                motion = [];
-            }
-
-            /*
-            if (axeler.x > 2) {
-                x_1 = 1;
-            }
-
-
             var __x = (axeler.x).toFixed(3);
             var __y = (axeler.y).toFixed(3);
             //          var __z = (axeler.z).toFixed(3);
@@ -247,8 +198,9 @@
                 }
                 ys = [];
             }
-*/
+
 //            socket.send({event: 'debug', d: xLast});
+
         }
     }
 </script>
