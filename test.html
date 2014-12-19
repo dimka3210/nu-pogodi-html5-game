@@ -156,7 +156,7 @@
             xPosition = Math.atan2(aY, aZ);
             yPosition = Math.atan2(aX, aZ);
 
-            if (xPosition > 10 || yPosition > 10 || xPosition < -10 || yPosition < -10) {
+            if (xPosition > 5 || yPosition > 5 || xPosition < -5 || yPosition < -5) {
                 socket.send({event: 'debug', d: {x:xPosition, y:yPosition}});
             }
             /*
