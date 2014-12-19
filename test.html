@@ -130,6 +130,9 @@
      }, 500);
      */
 
+    var x_1 = 0;
+    var x_2 = 0;
+    var x_3 = 0;
 
     var xs = [];
     var ys = [];
@@ -137,6 +140,18 @@
 
     x_zero = 0;
     y_zero = 0;
+
+    var motion = [];
+
+    function unique(arr) {
+        var obj = {};
+        for(var i=0; i<arr.length; i++) {
+            var str = arr[i];
+            obj[str] = true; // запомнить строку в виде свойства объекта
+        }
+        return Object.keys(obj); // или собрать ключи перебором для IE<9
+    }
+
 
     if (window.DeviceMotionEvent != undefined) {
         var xLast = 0;
@@ -147,21 +162,37 @@
 
         window.ondevicemotion = function (e) {
             var axeler = event.acceleration;
+            var __x = (axeler.x).toFixed(3);
+            var __y = (axeler.y).toFixed(3);
 
-            var aX = axeler.x*1;
-            var aY = axeler.y*1;
-            var aZ = axeler.z*1;
-            //The following two lines are just to calculate a
-            // tilt. Not really needed.
-            xPosition = Math.atan2(aY, aZ);
-            yPosition = Math.atan2(aX, aZ);
+            var xm = Math.abs(__x);
 
-            if (xPosition > 3 || yPosition > 3 || xPosition < -3 || yPosition < -3) {
-                socket.send({event: 'debug', d: {x:xPosition, y:yPosition}});
+            if (xm > 2 && xm > xLast) {
+               motion.push(1);
             }
-            /*
 
-            var axeler = event.acceleration;
+            if (xm > 2 && xm < xLast) {
+                motion.push(0);
+            }
+
+            xLast = xm;
+
+            u_motion = unique(motion);
+
+            if (u_motion[0] == 1 && u_motion[1] == 0 && u_motion[2] == 1) {
+                socket.send({event: 'debug', d: 'move'});
+            }
+
+            if (u_motion.length > 5) {
+                motion = [];
+            }
+
+            /*
+            if (axeler.x > 2) {
+                x_1 = 1;
+            }
+
+
             var __x = (axeler.x).toFixed(3);
             var __y = (axeler.y).toFixed(3);
             //          var __z = (axeler.z).toFixed(3);
@@ -212,9 +243,8 @@
                 }
                 ys = [];
             }
-
-//            socket.send({event: 'debug', d: xLast});
 */
+//            socket.send({event: 'debug', d: xLast});
         }
     }
 </script>
