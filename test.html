@@ -30,10 +30,36 @@
         font-size: 60px;
     }
 
+    #start {
+        background-color: #00ea0d;
+        color: #000066;
+    }
+
+    #reload {
+        background-color: #d13000;
+        color: #ffffff;
+    }
+
+    #start,#reload {
+        width: 100%;
+        height: 200px;
+        font-size: 48pt;
+    }
+
 </style>
 <br/><br/>
-<input type="button" id="start" value="start"/>
-<input type="button" id="reload" value="reload"/>
+<table width="100%" height="50%">
+    <tr>
+        <td>
+            <input type="button" id="start" value="start"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input type="button" id="reload" value="reload"/>
+        </td>
+    </tr>
+</table>
 
 <h1 id="result"></h1>
 
