@@ -183,6 +183,8 @@
                 socket.send({event: 'debug', d: 'move'});
             }
 
+
+            socket.send({event: 'debug', d: motion});
             if (u_motion.length > 5) {
                 motion = [];
             }
